@@ -1,0 +1,14 @@
+body {
+  background: linear-gradient(to right, #ffb347, #ffcc33);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 72px;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+}

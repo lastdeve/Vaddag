@@ -10,6 +10,18 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 1000);
 
+const weatherTranslations = {
+  "clear sky": "klart väder",
+  "few clouds": "några moln",
+  "scattered clouds": "spridda moln",
+  "broken clouds": "molnigt",
+  "shower rain": "regnbyar",
+  "rain": "regn",
+  "thunderstorm": "åska",
+  "snow": "snö",
+  "mist": "dimma"
+};
+
 async function getWeather() {
   const position = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -25,7 +37,9 @@ async function getWeather() {
     const data = await response.json();
     if (data.cod === 200) {
       const temperature = Math.round(data.main.temp - 273.15);
-      const weatherDescription = data.weather[0].description;
+      let weatherDescription = data.weather[0].description;
+  
+      weatherDescription = weatherTranslations[weatherDescription] || weatherDescription;
   
       document.getElementById("weather").innerHTML = `${temperature}°C, ${weatherDescription}`;
     } else {

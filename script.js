@@ -22,6 +22,18 @@ const weatherTranslations = {
   "mist": "dimma"
 };
 
+const currentHour = new Date().getHours();
+const body = document.querySelector("body");
+
+if (currentHour >= 6 && currentHour < 12) {
+  body.style.background = "linear-gradient(to right, #ffb347, #ffcc33)";
+} else if (currentHour >= 12 && currentHour < 18) {
+  body.style.background = "linear-gradient(to right, #a1c4fd, #c2e9fb)";
+} else if (currentHour >= 18 || currentHour < 6) {
+  body.style.background = "linear-gradient(to right, #2c3e50, #4ca1af)";
+}
+
+
 async function getWeather() {
   const position = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -38,10 +50,11 @@ async function getWeather() {
     if (data.cod === 200) {
       const temperature = Math.round(data.main.temp - 273.15);
       let weatherDescription = data.weather[0].description;
-  
+      
       weatherDescription = weatherTranslations[weatherDescription] || weatherDescription;
-  
+
       document.getElementById("weather").innerHTML = `${temperature}°C, ${weatherDescription}`;
+      
     } else {
       document.getElementById("weather").innerHTML = "Kunde inte hämta väderinformation";
     }

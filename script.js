@@ -10,17 +10,27 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 1000);
 
-// Example using OpenWeatherMap API to get weather information
-const API_KEY = "80ca243099f9b82058054fce2dd0a565";
-const city = "stockholm";
-const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
+function getWeather() {
+  navigator.geolocation.getCurrentPosition(position => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const API_KEY = "80ca243099f9b82058054fce2dd0a565";
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    const temperature = data.main.temp;
-    const weatherDescription = data.weather[0].description;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.cod === 200) {
+          const temperature = Math.round(data.main.temp - 273.15);
+          const weatherDescription = data.weather[0].description;
+  
+          document.getElementById("weather").innerHTML = `${temperature}°C, ${weatherDescription}`;
+        } else {
+          document.getElementById("weather").innerHTML = "Kunde inte hämta väderinformation";
+        }
+      })
+      .catch(error => console.error(error));
+  });
+}
 
-    document.getElementById("weather").innerHTML = `${temperature}°C, ${weatherDescription}`;
-  })
-  .catch(error => console.error(error));
+getWeather();

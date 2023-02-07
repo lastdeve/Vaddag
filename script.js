@@ -11,7 +11,7 @@ updateTime();
 setInterval(updateTime, 1000);
 
 // Example using OpenWeatherMap API to get weather information
-const API_KEY = "Y80ca243099f9b82058054fce2dd0a565";
+const API_KEY = "80ca243099f9b82058054fce2dd0a565";
 const city = "stockholm";
 const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
 

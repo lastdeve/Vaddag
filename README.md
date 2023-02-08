@@ -1,6 +1,8 @@
 # Vaddag
 Enkel hemsida som visar tid, veckodag och väder.
 
+<a href="placeholder.com" target="_blank">Opens in new tab</a>
+
 <a href="http://google.com/" target="_blank">Hello, google!</a>
 
 Klicka här för att komma till hemsidan
